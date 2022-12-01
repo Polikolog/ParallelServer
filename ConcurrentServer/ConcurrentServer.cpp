@@ -79,7 +79,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	srand((unsigned)time(NULL));
 
-	volatile TalkersCmd  cmd = Start; //команда управления сервером
+	volatile TalkersCmd  cmd = Getcommand; //команда управления сервером
 
 	InitializeCriticalSection(&scListContact); //инициалзируем критическую секцию
 

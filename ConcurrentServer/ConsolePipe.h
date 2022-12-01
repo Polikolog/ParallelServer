@@ -80,7 +80,7 @@ DWORD WINAPI ConsolePipe(LPVOID pPrm)
 							SetCommand = TalkersCmd::Exit;
 							break;
 						case 3:
-							sprintf(WriteBuf, "\nПодключено.: \t%i\nНеудачно.: \t%i\nЗавершено.: \t%i\n", Accept, Fail, Finished);
+							sprintf(WriteBuf, "\nПодключено.: \t%i\nЗавершено.: \t%i\nНеудачно.: \t%i\n", Accept, Fail, Finished);
 							Check = false;
 							break;
 						case 4:

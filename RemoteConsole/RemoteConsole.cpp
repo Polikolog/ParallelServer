@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			FALSE);
 
 		if (!fSuccess) {
-			throw new string("SetSecurityDescriptorDacl(): Ошибка");
+			throw new string("SetSecurityDescriptorDacl(): Ошибка"); // передаем настройки named pipe и на сервере ищем такой
 		}
 
 		SecurityAttributes.nLength = sizeof(SecurityAttributes);
@@ -72,7 +72,10 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		HANDLE hNamedPipe = CreateFile(PipeName, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, &SecurityAttributes);
 		if (hNamedPipe == INVALID_HANDLE_VALUE)
-			cout << GetLastError();
+		{
+			throw "Error: invalid name server;\t";
+			//cout << GetLastError() << endl;
+		}
 
 		do
 		{
@@ -99,7 +102,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << GetLastError() << endl;
 	}
 	//system("pause");
-	cout << "Консоль управления завершает работу...";
+	cout << endl << "Консоль управления завершает работу..." << endl;
 	Sleep(3000);
 	return 0;
 }

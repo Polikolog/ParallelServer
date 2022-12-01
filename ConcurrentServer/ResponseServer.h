@@ -1,7 +1,7 @@
 #pragma once
 #include "Global.h"
 
-DWORD WINAPI ResponseServer(LPVOID pPrm)
+DWORD WINAPI ResponseServer(LPVOID pPrm) // ответы на запросы
 {
 	DWORD rc = 0;
 	SOCKET  ServerSocket;

@@ -1,7 +1,7 @@
 // Client.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+#include "stdafx.h" // создаем сокет и получаем запросы
 using namespace std;
 
 bool SystemMessage(char *ch)

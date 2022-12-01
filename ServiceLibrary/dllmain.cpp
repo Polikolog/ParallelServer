@@ -13,7 +13,7 @@ ENTRYSERVICE("Time", TimeServer),
 ENTRYSERVICE("Rand", RandServer)
 END_TABLESERVICE;
 
-extern "C" __declspec(dllexport) HANDLE SSS(char* id, LPVOID prm)
+extern "C" __declspec(dllexport) HANDLE SSS(char* id, LPVOID prm) // пока таймер не истек, посылаем запросы
 {
 	HANDLE rc = NULL;
 	int  i = 0;

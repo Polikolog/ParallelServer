@@ -1,8 +1,7 @@
 #pragma once
 #include "Global.h"
-using std::iterator;
 
-DWORD WINAPI GarbageCleaner(LPVOID pPrm)
+DWORD WINAPI GarbageCleaner(LPVOID pPrm) // очистка ненужных клиентов
 {
 	cout << "GarbageCleaner запущен;\n" << endl;
 	DWORD rc = 0;
@@ -12,27 +11,27 @@ DWORD WINAPI GarbageCleaner(LPVOID pPrm)
 		{
 			EnterCriticalSection(&scListContact);
 
-			for (std::list<Contact>::iterator first = Contacts.begin(); first != Contacts.end();)
+			for (auto iterator = Contacts.begin(); iterator != Contacts.end();)
 			{
-				if (first->sthread == Contact::FINISH || first->sthread == Contact::TIMEOUT || first->sthread == Contact::ABORT || first->type == Contact::EMPTY)
+				if (iterator->sthread == Contact::FINISH || iterator->sthread == Contact::TIMEOUT || iterator->sthread == Contact::ABORT || iterator->type == Contact::EMPTY)
 				{
-					printf("IP удаленного клиента:-%s", inet_ntoa(first->prms.sin_addr));
-					cout << " с кодом " << first->sthread << ";" << endl;
-					if (first->type == Contact::EMPTY) InterlockedIncrement(&Fail);
+					printf("IP удаленного клиента:-%s", inet_ntoa(iterator->prms.sin_addr));
+					cout << " с кодом " << iterator->sthread << ";" << endl;
+					if (iterator->type == Contact::EMPTY) InterlockedIncrement(&Fail);
 					else
 					{
-						if (first->sthread == Contact::FINISH) InterlockedIncrement(&Finished);
-						if (first->sthread == Contact::TIMEOUT) InterlockedIncrement(&Fail);
-						if (first->sthread == Contact::ABORT) InterlockedIncrement(&Fail);
-						CloseHandle(first->hthread);
-						CloseHandle(first->htimer);
+						if (iterator->sthread == Contact::FINISH) InterlockedIncrement(&Finished);
+						if (iterator->sthread == Contact::TIMEOUT) InterlockedIncrement(&Fail);
+						if (iterator->sthread == Contact::ABORT) InterlockedIncrement(&Fail);
+						CloseHandle(iterator->hthread);
+						CloseHandle(iterator->htimer);
 					}
-					closesocket(first->s);
-					first = Contacts.erase(first);
+					closesocket(iterator->s);
+					iterator = Contacts.erase(iterator);
 					InterlockedDecrement(&Work);
 				}
 
-				else first++;
+				else iterator++;
 			}
 			LeaveCriticalSection(&scListContact);
 			Sleep(1000);
